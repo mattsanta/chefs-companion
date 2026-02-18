@@ -1,4 +1,5 @@
-In the world of coding, sleek and bright,
-Python's perls are a sheer delight.
-With every loop and function defined,
-Logic and beauty are neatly entwined, the end.
+Ruby's gems sparkle in the night,
+Turning complex code to pure delight.
+Blocks and yields in a graceful dance,
+Elegant paths where the logic flows,
+A shining jewel where the spirit grows.
