@@ -1,20 +1,52 @@
+# Auto-generated cloudbuild.yaml for chefs-companion
+
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/gcp-playground-boa/chefs-companion-repo/chefs-companion-app', '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/gcp-playground-boa/chefs-companion-repo/chefs-companion-app']
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: gcloud
-  args:
-  - 'run'
-  - 'deploy'
-  - 'chefs-companion-service'
-  - '--image'
-  - 'us-central1-docker.pkg.dev/gcp-playground-boa/chefs-companion-repo/chefs-companion-app'
-  - '--region'
-  - 'us-central1'
-  - '--platform'
-  - 'managed'
-  - '--allow-unauthenticated'
+  # Step 1: Install dependencies
+  - name: 'python:3.10-slim'
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt', '--user']
+
+  # Step 2: Run unit tests (if any exist, using python -m compileall as a smoke test if no pytest)
+  - name: 'python:3.10-slim'
+    entrypoint: 'python'
+    args: ['-m', 'compileall', '.']
+
+  # Step 3: Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
+      - '.'
+
+  # Step 4: Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
+
+  # Step 5: Create a Cloud Deploy release
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'deploy'
+      - 'releases'
+      - 'create'
+      - 'rel-${SHORT_SHA}'
+      - '--delivery-pipeline=${_PIPELINE_NAME}'
+      - '--region=${_LOCATION}'
+      - '--annotations=commit_sha=${REVISION_ID}'
+      - '--images=app-image=${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
+
 images:
-- 'us-central1-docker.pkg.dev/gcp-playground-boa/chefs-companion-repo/chefs-companion-app'
+  - '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/${_IMAGE_NAME}:${SHORT_SHA}'
+
+substitutions:
+  _LOCATION: us-east4
+  _REPO_NAME: chefs-companion
+  _IMAGE_NAME: app
+  _PIPELINE_NAME: chefs-companion
+
+options:
+  requestedVerifyOption: VERIFIED
+  logging: CLOUD_LOGGING_ONLY
