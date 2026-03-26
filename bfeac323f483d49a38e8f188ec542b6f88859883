@@ -1,0 +1,36 @@
+cloudbuild.yaml
+  06721f32065b629c 1-2,4-40,42-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "bfeac323f483d49a38e8f188ec542b6f88859883",
+  "prompts": {
+    "06721f32065b629c": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "6b85b547-e032-46b8-9683-ce7fd4f8a4f2",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 101,
+      "total_deletions": 42,
+      "accepted_lines": 101,
+      "overriden_lines": 0
+    },
+    "f32e7c07537dc51e": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "cb39ea93-d2ab-4bbb-994a-0444ecb0379d",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 72,
+      "total_deletions": 22,
+      "accepted_lines": 16,
+      "overriden_lines": 0
+    }
+  }
+}
