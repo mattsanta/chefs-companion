@@ -1,0 +1,32 @@
+{
+  "displayName": "chefs-companion-staging 5xx Error Rate > 5%",
+  "conditions": [
+    {
+      "displayName": "5xx Error Ratio > 5%",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_run_revision\" AND resource.labels.service_name = \"chefs-companion-staging\" AND metric.type = \"run.googleapis.com/request_count\" AND metric.labels.response_code_class = \"5xx\"",
+        "denominatorFilter": "resource.type = \"cloud_run_revision\" AND resource.labels.service_name = \"chefs-companion-staging\" AND metric.type = \"run.googleapis.com/request_count\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_RATE"
+          }
+        ],
+        "denominatorAggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_RATE"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "duration": "300s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 0.05
+      }
+    }
+  ],
+  "combiner": "OR",
+  "enabled": true
+}

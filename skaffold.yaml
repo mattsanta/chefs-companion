@@ -1,0 +1,13 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+deploy:
+  cloudrun: {}
+profiles:
+- name: staging
+  manifests:
+    rawYaml:
+    - service-staging.yaml
+- name: prod
+  manifests:
+    rawYaml:
+    - service-prod.yaml

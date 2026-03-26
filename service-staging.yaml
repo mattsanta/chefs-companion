@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: chefs-companion-staging
+spec:
+  template:
+    spec:
+      containers:
+      - image: app-image
