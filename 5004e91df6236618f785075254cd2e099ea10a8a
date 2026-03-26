@@ -1,0 +1,23 @@
+cloudbuild.yaml
+  bf9c29b498bf871b 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "5004e91df6236618f785075254cd2e099ea10a8a",
+  "prompts": {
+    "bf9c29b498bf871b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "14f913b9-c21f-497b-bfbe-1330c3a03baf",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 0,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
