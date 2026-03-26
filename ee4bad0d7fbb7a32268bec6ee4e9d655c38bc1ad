@@ -1,0 +1,59 @@
+cloudbuild.yaml
+  bf9c29b498bf871b 2,7,10,14,16,23-26,29
+service-prod.yaml
+  06721f32065b629c 1-9
+skaffold.yaml
+  f32e7c07537dc51e 1-5,7-8,11-12
+  06721f32065b629c 6,9-10,13
+clouddeploy.yaml
+  06721f32065b629c 4,8,10,17,19,35-49,54-55,61
+  bf9c29b498bf871b 15,23-34,60,76,78-92
+service-staging.yaml
+  06721f32065b629c 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "ee4bad0d7fbb7a32268bec6ee4e9d655c38bc1ad",
+  "prompts": {
+    "06721f32065b629c": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "6b85b547-e032-46b8-9683-ce7fd4f8a4f2",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 49,
+      "overriden_lines": 0
+    },
+    "bf9c29b498bf871b": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "14f913b9-c21f-497b-bfbe-1330c3a03baf",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 62,
+      "total_deletions": 3,
+      "accepted_lines": 62,
+      "overriden_lines": 0
+    },
+    "f32e7c07537dc51e": {
+      "agent_id": {
+        "tool": "gemini",
+        "id": "cb39ea93-d2ab-4bbb-994a-0444ecb0379d",
+        "model": "gemini-3-flash-preview"
+      },
+      "human_author": "mattsanta <mattsanta@google.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
