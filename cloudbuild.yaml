@@ -30,3 +30,4 @@ images:
 
 options:
   requestedVerifyOption: VERIFIED
+  logging: CLOUD_LOGGING_ONLY
