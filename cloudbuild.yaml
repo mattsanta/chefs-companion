@@ -6,7 +6,7 @@ steps:
       - -c
       - |
         pip install -r requirements.txt
-        pytest
+        PYTHONPATH=. pytest
 
   # Build and push the container image
   - name: 'gcr.io/cloud-builders/docker'
