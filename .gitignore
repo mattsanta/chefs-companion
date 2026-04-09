@@ -1,1 +1,4 @@
-sdlc-poc-439213-f9f0a12410e3.json
+sdlc-poc-439213-f9f0a12410e3.json.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan

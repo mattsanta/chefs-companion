@@ -43,3 +43,18 @@ The application should then be accessible in your web browser at `http://127.0.0
 See `CONTRIBUTING.md` for guidelines on how to contribute to this project.
 
 hello from yesh and matt
+## CI/CD Pipeline
+
+This project uses Google Cloud Build and Cloud Deploy to automatically deploy to GKE.
+
+### Environments
+- **Dev**: Automatically deployed on every push to the `main` branch.
+- **Prod**: Automatically promoted after a successful deployment to Dev.
+
+### Features
+- **Automatic Rollbacks**: If a deployment fails in any environment, it will be automatically rolled back to the previous stable version.
+- **Infrastructure as Code**: Managed via Terraform in the `terraform/` directory.
+
+### Manual Actions
+- You can monitor deployments in the [Google Cloud Console](https://console.cloud.google.com/deploy/delivery-pipelines).
+- Releases can also be manually created using `gcloud deploy releases create`.

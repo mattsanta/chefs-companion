@@ -1,33 +1,31 @@
 steps:
-  # Step 1: Build the container image
-  - name: 'gcr.io/cloud-builders/docker'
+  # Run tests
+  - name: 'python:3.10-slim'
+    entrypoint: /bin/sh
     args:
-      - 'build'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/chefs-companion-repo/chefs-companion:$SHORT_SHA'
-      - '.'
+      - -c
+      - |
+        pip install -r requirements.txt
+        pytest
 
-  # Step 2: Push the container image to Artifact Registry
+  # Build and push the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'push'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/chefs-companion-repo/chefs-companion:$SHORT_SHA'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/chefs-comp-app/app:$COMMIT_SHA', '.']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/chefs-comp-app/app:$COMMIT_SHA']
 
-  # Step 3: Create a Cloud Deploy release
+  # Create a Cloud Deploy release
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
+    entrypoint: gcloud
     args:
-      - 'deploy'
-      - 'releases'
-      - 'create'
-      - 'release-$SHORT_SHA'
-      - '--delivery-pipeline=chefs-companion-pipeline'
-      - '--region=us-central1'
-      - '--images=app-image=us-central1-docker.pkg.dev/$PROJECT_ID/chefs-companion-repo/chefs-companion:$SHORT_SHA'
-
-images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/chefs-companion-repo/chefs-companion:$SHORT_SHA'
+      [
+        'deploy', 'releases', 'create', 'release-$SHORT_SHA',
+        '--delivery-pipeline', 'chefs-companion',
+        '--region', 'us-central1',
+        '--annotations', 'commit_sha=$COMMIT_SHA',
+        '--images', 'IMAGE_PLACEHOLDER=us-central1-docker.pkg.dev/$PROJECT_ID/chefs-comp-app/app:$COMMIT_SHA'
+      ]
 
 options:
-  requestedVerifyOption: VERIFIED
   logging: CLOUD_LOGGING_ONLY
