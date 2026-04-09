@@ -1,3 +1,4 @@
+# Chefs Companion - Application Entry Point
 from flask import Flask, jsonify, request, render_template
 from better_profanity import profanity
 from textblob import TextBlob
