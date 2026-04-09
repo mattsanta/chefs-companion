@@ -1,15 +1,13 @@
-apiVersion: skaffold/v4beta7
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
   name: chefs-companion
-build:
-  artifacts:
-    - image: IMAGE_PLACEHOLDER
-      docker:
-        dockerfile: Dockerfile
+deploy:
+  kubectl: {}
 manifests:
   rawYaml:
     - k8s/deployment.yaml
     - k8s/service.yaml
-deploy:
-  cloudDeploy: {}
+profiles:
+  - name: chefs-companion-dev
+  - name: chefs-companion-prod
