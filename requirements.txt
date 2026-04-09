@@ -5,4 +5,5 @@ Pillow
 
 # Text analysis libraries
 better-profanity
-textblob==0.15.3pytest
+textblob==0.15.3
+pytest
